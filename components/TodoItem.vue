@@ -17,7 +17,7 @@
         {{ todo.done ? 'Done' : 'Undone' }}
       </span>
       <div class="todo-status-icon">
-        <i v-if="todo.done" class="fas fa-check"></i>
+        <img v-if="todo.done" src="~/assets/check.svg" />
       </div>
       <div v-if="!editing" class="todo-text">
         {{ todo.todo }}
@@ -155,6 +155,11 @@ export default Vue.extend({
 .todo-status-icon:hover,
 .todo-item.done .todo-status-icon {
   background-color: #a4ec82;
+}
+
+.todo-status-icon img {
+  width: 12px;
+  height: 12px;
 }
 
 .todo-edit-input {
