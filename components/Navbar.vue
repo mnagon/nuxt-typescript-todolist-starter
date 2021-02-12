@@ -21,14 +21,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import AddTodoModal from './AddTodoModal.vue'
-import DropdownNav from './DropdownNav.vue'
-export default Vue.extend({
-  components: {
-    AddTodoModal,
-    DropdownNav,
-  },
-})
+export default Vue.extend({})
 </script>
 
 <style scoped>

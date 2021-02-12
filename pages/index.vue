@@ -8,11 +8,8 @@
         <todo-input />
         <div class="todo-wrapper">
           <todo-item
-            :todo="{
-              done: true,
-              todo: 'Todo title',
-            }"
-            :index="0"
+            :todo="{ todo: 'Some todo text here...', done: false }"
+            index="0"
           />
         </div>
       </div>
@@ -22,19 +19,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Navbar from '~/components/Navbar.vue'
-import Board from '~/components/Board.vue'
-import TodoItem from '~/components/TodoItem.vue'
-import TodoInput from '~/components/TodoInput.vue'
-
-export default Vue.extend({
-  components: {
-    Navbar,
-    Board,
-    TodoItem,
-    TodoInput,
-  },
-})
+export default Vue.extend({})
 </script>
 
 <style scoped>

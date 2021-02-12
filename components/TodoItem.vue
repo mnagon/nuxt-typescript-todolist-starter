@@ -14,14 +14,21 @@
     </button>
     <div class="todo-card">
       <span class="todo-status">
-        {{ done ? 'Complete' : 'Continue' }}
+        {{ todo.done ? 'Done' : 'Undone' }}
       </span>
       <div class="todo-status-icon">
-        <i v-if="done" class="fas fa-check-circle"></i>
-        <i v-else class="fas fa-clock"></i>
+        <i v-if="todo.done" class="fas fa-check"></i>
       </div>
-      <div v-if="!editing" class="todo-text">{{ todo.todo }}</div>
-      <input v-else v-model="todoForm" class="todo-edit-input" type="text" />
+      <div v-if="!editing" class="todo-text">
+        {{ todo.todo }}
+      </div>
+      <input
+        v-else
+        :id="id"
+        v-model.lazy="todoForm"
+        class="todo-edit-input"
+        type="text"
+      />
     </div>
   </div>
 </template>
@@ -31,6 +38,7 @@ import Vue, { PropType } from 'vue'
 
 interface State {
   editing: boolean
+  id: string
 }
 
 interface Todo {
@@ -51,26 +59,9 @@ export default Vue.extend({
   },
   data(): State {
     return {
+      id: 'input' + this.index,
       editing: false,
     }
-  },
-  computed: {
-    done: {
-      get(): boolean {
-        return this.todo.done
-      },
-      set(bool: boolean): void {
-        this.$emit('change', bool)
-      },
-    },
-    todoForm: {
-      get(): string {
-        return this.todo.todo
-      },
-      set(todo: string): void {
-        this.$emit('edit', todo)
-      },
-    },
   },
 })
 </script>
@@ -107,7 +98,7 @@ export default Vue.extend({
   left: 0;
   height: 100%;
   width: 8px;
-  background-color: #f6d39e;
+  background-color: #b9d4f1;
 }
 
 .todo-item.done .todo-card::before {
@@ -146,16 +137,24 @@ export default Vue.extend({
 }
 
 .todo-status-icon {
-  width: 72px;
-  min-width: 72px;
-  text-align: center;
-  font-size: 20px;
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #b9d4f1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
   margin-top: 32px;
-  color: #f6d39e;
+  margin-left: 32px;
+  margin-right: 32px;
+  color: #fff;
 }
 
+.todo-status-icon:hover,
 .todo-item.done .todo-status-icon {
-  color: #a4ec82;
+  background-color: #a4ec82;
 }
 
 .todo-edit-input {
@@ -164,8 +163,8 @@ export default Vue.extend({
   margin-top: 32px;
   color: #21273d;
   border-color: transparent;
-  background-color: transparent;
-  padding-right: 96px;
+  background-color: #c0d4f1;
+  margin-right: 96px;
 }
 
 .todo-text {
@@ -174,6 +173,7 @@ export default Vue.extend({
   margin-top: 32px;
   color: #21273d;
   overflow: hidden;
+  cursor: text;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -181,7 +181,7 @@ export default Vue.extend({
 
 @media only screen and (min-width: 768px) {
   .todo-text {
-    padding-right: 96px;
+    margin-right: 96px;
   }
 
   .delete-button,
